@@ -80,7 +80,6 @@ app.get("/inicio", (req, res) => {
         "key": req.session.key
       }
     }, function (e, res2, body) {
-      console.log(body)
       if (body["status"] == "error") { res.redirect("/logout"); return null; }
       name = body["info"]["name"]
       request.get({
@@ -94,10 +93,10 @@ app.get("/inicio", (req, res) => {
         }
       }, function (e, res3, body2) {
         let cuentas = ""
-        if (Object.keys(body2["accounts"]).length > 1) {
+        if (body2["accounts"].length <= 1) {
           cuentas = " 1 cuenta bancaria"
         } else {
-          cuentas = Object.keys(body2).length + " cuentas bancarias"
+          cuentas = body2["accounts"].length + " cuentas bancarias"
         }
         req.session.cuentas = body2
 
