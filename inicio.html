@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inicio</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@1,400;1,700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="inicio.css">
+    
+
+</head>
+
+<body>
+    <nav class="sidebar-navigation">
+
+        <ul>
+            <img src="logo.png" class="imginicio">
+            <li class="active" >
+                <img src="inicio.svg" alt="" style="width: 4vh;">
+                <i class="fa fa-newspaper-o"></i>
+
+                <span class="tooltip">Inicio</span>
+            </li>
+            <li onclick="location.href='/movimientos'">
+                <img src="docs.svg" alt="" style="width: 4vh;">
+                <i class="fa fa-newspaper-o"></i>
+
+                <span class="tooltip">Movimientos</span>
+            </li>
+            <li>
+                <img src="analytics.svg" alt="" style="width: 4vh;">
+                <i class="fa fa-newspaper-o"></i>
+                <span class="tooltip">Estadisticas</span>
+            </li>
+            <li>
+                <img src="usuariox.svg" alt="" style="width: 4vh;">
+                <i class="fa fa-print"></i>
+                <span class="tooltip">Usuario</span>
+            </li>
+            <li onclick="location.href='/logout'" >
+                <img src="shutdown.svg" alt="" style="width: 4vh;">
+                <i class="fa fa-sliders"></i>
+                <span class="tooltip">Cerrar sesion</span>
+            </li>
+        </ul>
+    </nav>
+    <div class="grand">
+        <h1>Bienvenido <%= name %> al aplicativo financiero #1</h1>
+        <div class="parent">
+
+            <div class="div1">
+                <div >
+                    <h1>Movimientos</h1> <img src="docs.svg" alt=""
+                        style="width: 20vw; margin-bottom: 10px;">
+                    <h2>Mira tus ultimos movimientos financieros.</h2>
+                </div>
+                
+                <div id="divMovimientos" class="iniciobtn"><h1>Ver movimientos</h1></div>
+            </div>
+            <div class="div2">
+                <h1 style="position: relative;
+                top: 50%;
+                transform: translateY(-50%);
+                -webkit-transform: translateY(-50%);
+                -ms-transform: translateY(-50%);">¡ Posees <%= cuentas %> !</h1>
+            </div>
+            <div class="div3">
+                <div>
+                    <h1>Estadisticas</h1> <img src="analytics.svg" alt=""
+                        style="width: 12vw; margin-bottom: 10px;">
+                    <h2>Mira tus estadisticas graficamente.</h2>
+                </div>
+                <div class="iniciobtn"><h1>Ver estadisticas</h1></div>
+
+            </div>
+            
+            
+        </div>
+    </div>
+</body>
+<script src="inicio.js"></script>
+</html>

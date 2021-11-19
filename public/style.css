@@ -1,0 +1,32 @@
+body {
+  background-image: url("Background.png");
+
+  background-size: cover;
+}
+#form {
+  margin-left: 10%;
+  margin-right: 10%;
+  margin-top: 15%;
+}
+
+.inputF {
+  margin-bottom: 30px;
+}
+.imgLOG {
+  padding-top: 10vh;
+  padding-bottom: 8vh;
+  display: block;
+  margin: auto;
+}
+.formDiv {
+  color: white;
+  background-color: rgba(64, 64, 64, 0.507);
+  margin-left: 35%;
+  margin-right: 35%;
+}
+@media (min-width: 270px) and (max-width:784px) {
+    .formDiv {
+        margin-left: 20%;
+        margin-right: 20%;
+      }
+}

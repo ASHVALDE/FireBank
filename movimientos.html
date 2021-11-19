@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Movimientos</title>
+
+
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@1,400;1,700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="inicio.css">
+    <link rel="stylesheet" href="tabla.css">
+    
+    <script src="inicio.js"></script>
+    
+
+</head>
+
+<body>
+    <nav class="sidebar-navigation">
+
+        <ul>
+            <img src="logo.png" class="imginicio">
+            <li onclick="location.href='/inicio'">
+                <img src="inicio.svg" alt="" style="width: 4vh;">
+                <i class="fa fa-newspaper-o"></i>
+
+                <span class="tooltip">Inicio</span>
+            </li>
+            <li class="active">
+                <img src="docs.svg" alt="" style="width: 4vh;">
+                <i class="fa fa-newspaper-o"></i>
+
+                <span class="tooltip">Movimientos</span>
+            </li>
+            <li>
+                <img src="analytics.svg" alt="" style="width: 4vh;">
+                <i class="fa fa-newspaper-o"></i>
+                <span class="tooltip">Estadisticas</span>
+            </li>
+            <li>
+                <img src="usuariox.svg" alt="" style="width: 4vh;">
+                <i class="fa fa-print"></i>
+                <span class="tooltip">Usuario</span>
+            </li>
+            <li onclick="location.href='/logout'">
+                <img src="shutdown.svg" alt="" style="width: 4vh;">
+                <i class="fa fa-sliders"></i>
+                <span class="tooltip">Cerrar sesion</span>
+            </li>
+        </ul>
+    </nav>
+    <div class="grand">
+        <h1>Tus ultimos movimientos financieros</h1>
+        <select name="Cuentas" id="Cuentas">
+            <% Object.keys(cuentas["accounts"]).forEach(key=>{%>
+                <option value="<%=key%>"> <%=cuentas["accounts"][key]["name"] %>
+                </option>
+                <%}) %>
+                   
+        </select>
+        <select name="Dias" id="Dias">
+            <option value="0">hoy</option>
+            <option value="7">Ultimos 7 dias</option>
+            <option value="15">Ultimos 15 dias</option>
+            <option value="30">Ultimos 30 dias</option>
+            <option value="90">Ultimos 3 meses</option>
+            <option value="180">Ultimos 6 meses</option>
+            <option value="365">Ultimo año</option>
+            <option value="1825">Ultimos 5 años</option>
+        </select>
+        
+        <select  name="Rubro" id="Rubro" > 
+            <option value="todos">todos</option>
+            <option value="Hogar_e_Interiores">Hogar e Interiores</option>
+            <option value="Medicina">Medicina</option>
+            <option value="Compras_Virtuales">Compras Virtuales</option>
+            <option value="Comida">Comida</option>
+            <option value="Turismo_y_cultura">Turismo y cultura</option>
+            <option value="Vehiculos_y_transporte">Vehiculos y transporte</option>
+            <option value="Ropa">Ropa</option>
+            <option value="Mascotas">Mascotas</option>
+            <option value="Empresas_Reportadas_Negativamente">Empresas Reportadas Negativamente</option>
+            <option value="Software_y_Tecnologias">Software y Tecnologias</option>
+            <option value="Economia_y_acciones">Economia y acciones</option>
+            <option value="Retiros">Retiros</option>
+            <option value="Entradas">Entradas</option>
+            <option value="Donaciones">Donaciones</option>
+            <option value="Otro">Otro</option>
+        </select>
+        
+        <button onclick="read()">Buscar</button>
+        <br>
+        <br>
+
+        <% if (Object.keys(movimientos).length!=0) { %>
+            <table>
+                <tr>
+                  
+                  
+                  <th>fecha</th>
+                  <th>Detalles</th>
+                  <th>Efectivo</th>
+                  <th>Categoria</th>
+                  
+                  
+                </tr>
+                <% Object.keys(movimientos["movements"]).forEach(key=>{
+                    let color = "red";
+                    if(movimientos["movements"][key]["credit"]==""){
+                        movimientos["movements"][key]["credit"]=0
+                    }
+                    if(movimientos["movements"][key]["debit"]==""){
+                        movimientos["movements"][key]["debit"]=0
+                    }
+                    if(parseInt(movimientos["movements"][key]["credit"])-parseInt(movimientos["movements"][key]["debit"])>0){
+                        color = "#00ff00";
+                    }
+                    %>
+                    
+                        
+                    
+                    <%  if (rubro==movimientos["movements"][key]["Categoria"] || rubro=="todos"){  %>
+                    <td><%=movimientos["movements"][key]["date"]%></td>
+                    <td><%=movimientos["movements"][key]["detail"]%></td>
+                    <td style="color:<%=color %> ;" ><%= parseInt(movimientos["movements"][key]["credit"])-parseInt(movimientos["movements"][key]["debit"])%></td>
+
+                    <td><%=movimientos["movements"][key]["Categoria"]%></td>
+
+                    
+                    </tr>
+                <%}}) %>
+                
+                
+                
+              </table>
+        <% } %>
+        
+
+    </div>
+</body>
+<script src="movimientos.js"></script>
+</html>
