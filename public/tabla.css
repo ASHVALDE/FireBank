@@ -178,7 +178,7 @@ main {
   @media(max-width:680px)
   {h1{font-size: 5.2vw} }
 
-  @media (min-width: 720px) {
+  @media (min-width: 1024px) {
     table {
       display: table;
     }
@@ -227,8 +227,8 @@ main {
     }
   }
   @media 
-  only screen and (max-width: 760px),
-  (min-device-width: 768px) and (max-device-width: 1024px)  {
+  only screen and (max-width: 1024px)
+    {
   
     /* Force table to not be like tables anymore */
     table, thead, tbody, th, td, tr { 
