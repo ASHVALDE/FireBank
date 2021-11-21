@@ -27,7 +27,7 @@
     <nav class="sidebar-navigation">
 
         <ul>
-            <img src="/svg/Logo.svg" class="imginicio">
+            <img src="/svg/logo.svg" class="imginicio">
             <li onclick="location.href='/inicio'">
                 <img src="/svg/inicio.svg" alt="" style="width: 4vh;">
                 <i class="fa fa-newspaper-o"></i>
@@ -106,7 +106,10 @@
         <br>
 
         <% if (Object.keys(movimientos).length!=0) { %>
-            <table>
+
+            <input type="text" id="myInput" onkeyup="myFunction()" placeholder="Busca tus movimientos.." title="Busca descripcion:">
+            <br>
+            <table id="tablaX">
                 <tr id="infoTR">
                   
                   
@@ -150,7 +153,26 @@
               </table>
         <% } %>
         
-
+        <script>
+function myFunction() {
+  var input, filter, table, tr, td, i, txtValue;
+  input = document.getElementById("myInput");
+  filter = input.value.toUpperCase();
+  table = document.getElementById("tablaX");
+  tr = table.getElementsByTagName("tr");
+  for (i = 0; i < tr.length; i++) {
+    td = tr[i].getElementsByTagName("td")[1];
+    if (td) {
+      txtValue = td.textContent || td.innerText;
+      if (txtValue.toUpperCase().indexOf(filter) > -1) {
+        tr[i].style.display = "";
+      } else {
+        tr[i].style.display = "none";
+      }
+    }       
+  }
+}
+</script>
     </div>
 </body>
 <script src="movimientos.js"></script>
