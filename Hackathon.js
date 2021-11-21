@@ -116,7 +116,7 @@ app.get("/movimientos", (req, res) => {
     tiempo = req.query.Dias
     Rubro = req.query.Rubro
     movimientos = {}
-    if (idcuenta && tiempo && Rubro) {
+    if (idcuenta && tiempo) {
       let Rubros = Rubro.replace(/_/g," ").split(",")
       console.log(Rubros)
       let moneda = ""

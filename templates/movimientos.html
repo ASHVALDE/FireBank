@@ -59,6 +59,9 @@
     </nav>
     <div class="grand">
         <h1>Tus ultimos movimientos financieros</h1>
+        
+        <h3>¿Que movimientos quieres buscar?</h3>
+        <br>
         <select name="Cuentas" id="Cuentas">
             <% Object.keys(cuentas["accounts"]).forEach(key=>{%>
                 <option value="<%=key%>"> <%=cuentas["accounts"][key]["name"] %>
@@ -102,12 +105,15 @@
             });
         </script>
         <button onclick="read()">Buscar</button>
-        <br>
-        <br>
+        
 
         <% if (Object.keys(movimientos).length!=0) { %>
-
-            <input type="text" id="myInput" onkeyup="myFunction()" placeholder="Busca tus movimientos.." title="Busca descripcion:">
+            <br>
+            <br>
+            <h3>Tus movimientos financieros:</h3>
+            <br>
+            <input type="text" id="myInput" onkeyup="myFunction()" placeholder="Buscar un movimiento." title="Busca descripcion:">
+            <br>
             <br>
             <table id="tablaX">
                 <tr id="infoTR">
@@ -136,7 +142,6 @@
                     %>
                     
                     
-                    <% console.log(movimientos["movements"][key]["Categoria"]) %>
                     <%  if (rubro.some(v => movimientos["movements"][key]["Categoria"].includes(v))){  %>
                     <td><%=movimientos["movements"][key]["date"]%></td>
                     <td><%=movimientos["movements"][key]["detail"]%></td>
