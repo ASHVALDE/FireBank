@@ -64,12 +64,29 @@ main {
     background-color: #4b908f;
   }
   
-  .select {
-    padding-bottom: 20px;
-    border-bottom: 1px solid #28333f;
+  select {
+    background-color: white;
+    width: auto;
+    height: 26px;
+    border: 1px solid #28333f;
+    border-radius: 4px;
   }
-  .select:before {
-    display: none;
+  button {
+    transition-duration: 0.4s;
+    background-color: #ffffff; /* Green */
+  border: none;
+  color: rgb(0, 0, 0);
+  padding: 5px 5px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  }
+  
+  button:hover {
+    
+    background-color: #000000; /* Green */
+    color: white;
   }
   
   .detail {
@@ -156,7 +173,11 @@ main {
     .select {
       padding-left: 160px;
     }
+    
   }
+  @media(max-width:680px)
+  {h1{font-size: 5.2vw} }
+
   @media (min-width: 720px) {
     table {
       display: table;
@@ -205,4 +226,61 @@ main {
       padding: 10px;
     }
   }
- 
+  @media 
+  only screen and (max-width: 760px),
+  (min-device-width: 768px) and (max-device-width: 1024px)  {
+  
+    /* Force table to not be like tables anymore */
+    table, thead, tbody, th, td, tr { 
+      display: block; 
+    }
+    #infoTR{
+      display: none;
+    }
+    th{
+      display: none;
+    }
+    /* Hide table headers (but not display: none;, for accessibility) */
+    thead tr { 
+      position: absolute;
+      top: -9999px;
+      left: -9999px;
+    }
+    
+    tr {
+      margin-bottom: 10px ;
+       border: 1px solid rgb(255, 255, 255); }
+    
+    td { 
+      /* Behave  like a "row" */
+      border: none;
+      border-bottom: 1px solid #eee; 
+      position: relative;
+      padding-left: 50%; 
+    }
+    
+    td:before { 
+      /* Now like a table header */
+      position: absolute;
+      /* Top/left values mimic padding */
+      top: 6px;
+      left: 6px;
+      width: 45%; 
+      padding-right: 10px; 
+      white-space: nowrap;
+    }
+    
+    /*
+    Label the data
+    */
+
+    td:nth-of-type(1):before { color: white; content: "Fecha"; }
+    td:nth-of-type(2):before { content: "Descripcion"; }
+    td:nth-of-type(3):before { content: "Movimiento"; }
+    td:nth-of-type(4):before { content: "Categoria"; }
+    
+  }
+  .ms-drop ul li{
+    text-align: left;
+    padding: 5px}
+  

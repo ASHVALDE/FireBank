@@ -7,8 +7,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Movimientos</title>
 
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
 
-
+    <link rel="stylesheet" type="text/css" href="https://cdn.rawgit.com/wenzhixin/multiple-select/e14b36de/multiple-select.css">
+    <!-- Include plugin -->
+    <script src="https://cdn.rawgit.com/wenzhixin/multiple-select/e14b36de/multiple-select.js"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@1,400;1,700&display=swap" rel="stylesheet">
@@ -24,7 +27,7 @@
     <nav class="sidebar-navigation">
 
         <ul>
-            <img src="logo.png" class="imginicio">
+            <img src="logo.svg" class="imginicio">
             <li onclick="location.href='/inicio'">
                 <img src="inicio.svg" alt="" style="width: 4vh;">
                 <i class="fa fa-newspaper-o"></i>
@@ -37,12 +40,12 @@
 
                 <span class="tooltip">Movimientos</span>
             </li>
-            <li>
+            <li onclick="alert('Proximamente 😉')">
                 <img src="analytics.svg" alt="" style="width: 4vh;">
                 <i class="fa fa-newspaper-o"></i>
                 <span class="tooltip">Estadisticas</span>
             </li>
-            <li>
+            <li onclick="alert('Proximamente 😉')">
                 <img src="usuariox.svg" alt="" style="width: 4vh;">
                 <i class="fa fa-print"></i>
                 <span class="tooltip">Usuario</span>
@@ -63,6 +66,7 @@
                 <%}) %>
                    
         </select>
+        
         <select name="Dias" id="Dias">
             <option value="0">hoy</option>
             <option value="7">Ultimos 7 dias</option>
@@ -73,9 +77,8 @@
             <option value="365">Ultimo año</option>
             <option value="1825">Ultimos 5 años</option>
         </select>
-        
-        <select  name="Rubro" id="Rubro" > 
-            <option value="todos">todos</option>
+    
+        <select  name="Rubro" id="Rubro" multiple="multiple" > 
             <option value="Hogar_e_Interiores">Hogar e Interiores</option>
             <option value="Medicina">Medicina</option>
             <option value="Compras_Virtuales">Compras Virtuales</option>
@@ -92,14 +95,19 @@
             <option value="Donaciones">Donaciones</option>
             <option value="Otro">Otro</option>
         </select>
-        
+        <script>
+            // Initialize multiple select on your regular select
+            $("#Rubro").multipleSelect({
+                filter: true
+            });
+        </script>
         <button onclick="read()">Buscar</button>
         <br>
         <br>
 
         <% if (Object.keys(movimientos).length!=0) { %>
             <table>
-                <tr>
+                <tr id="infoTR">
                   
                   
                   <th>fecha</th>
@@ -122,9 +130,9 @@
                     }
                     %>
                     
-                        
                     
-                    <%  if (rubro==movimientos["movements"][key]["Categoria"] || rubro=="todos"){  %>
+                    <% console.log(movimientos["movements"][key]["Categoria"]) %>
+                    <%  if (rubro.some(v => movimientos["movements"][key]["Categoria"].includes(v))){  %>
                     <td><%=movimientos["movements"][key]["date"]%></td>
                     <td><%=movimientos["movements"][key]["detail"]%></td>
                     <td style="color:<%=color %> ;" ><%= parseInt(movimientos["movements"][key]["credit"])-parseInt(movimientos["movements"][key]["debit"])%></td>

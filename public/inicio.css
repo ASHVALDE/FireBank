@@ -10,90 +10,18 @@ body {
   background-color: #f5f6f8;
   font-family: "Noto Sans", sans-serif;
 }
-@media (orientation: portrait) {
-  .sidebar-navigation {
-    display: none;
-    visibility: collapse;
-  }
-  .grand {
-    margin-left: 0px;
-  }
-}
-@media (orientation: landscape) {
-  .grand {
-    margin-left: 70px;
-  }
-}
-.sidebar-navigation {
-  position: relative;
-  min-height: 100vh;
 
-  width: 60px;
-  background: rgb(255, 126, 0);
-  background: linear-gradient(
-    180deg,
-    rgba(255, 126, 0, 1) 0%,
-    rgba(222, 58, 58, 1) 100%
-  );
-  border-radius: 0px 20px 20px 0px;
-  float: left;
-}
-.sidebar-navigation ul {
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  min-height: 100%;
-  text-align: center;
-  color: white;
-}
 .sidebar-navigation ul li {
   padding: 5vh 0 5vh 0;
   cursor: pointer;
   transition: all ease-out 120ms;
 }
-
 .sidebar-navigation ul li i {
   display: block;
   font-size: 24px;
   transition: all ease 450ms;
 }
-.imginicio {
-  width: 70%;
-  margin-top: 15px;
-  margin-bottom: 15px;
-}
-.sidebar-navigation ul li .tooltip {
-  display: inline-block;
-  position: absolute;
-  background-color: #000000bd;
-  padding: 8px 15px;
-  border-radius: 3px;
-  margin-top: -26px;
-  left: 90px;
-  opacity: 0;
-  visibility: hidden;
-  font-size: 13px;
-  letter-spacing: 0.5px;
-  z-index: 1;
-}
-.sidebar-navigation ul li .tooltip:before {
-  content: "";
-  display: block;
-  position: absolute;
-  left: -4px;
-  top: 10px;
-  transform: rotate(45deg);
-  width: 10px;
-  height: 10px;
-  background-color: inherit;
-}
-.sidebar-navigation ul li:hover {
-  background-color: #00000060;
-}
-.sidebar-navigation ul li:hover .tooltip {
-  visibility: visible;
-  opacity: 1;
-}
+
 .sidebar-navigation ul li.active {
   background-color: #000000bd;
 }
@@ -154,7 +82,6 @@ body {
   color: white;
   border: 5px white solid;
   border-radius: 15px;
-
   padding: 3%;
 }
 .grand h1 {
@@ -185,7 +112,107 @@ body {
   margin-top: 20px;
   user-select: none; /* Standard */
 }
-.iniciobtn:hover{
+.iniciobtn:hover {
   background-color: black;
-  color:white;
+  color: white;
+}
+@media (orientation: portrait) {
+  .grand{
+    padding-top: 80px;
+  }
+  .sidebar-navigation {
+    width: 97vw;
+    background: rgb(255, 126, 0);
+    background: linear-gradient(
+      180deg,
+      rgba(255, 126, 0, 1) 0%,
+      rgba(222, 58, 58, 1) 100%
+    );
+    border-radius: 0px 0px 20px 20px;
+    float: left;
+  }
+  .imginicio {
+    display: none;
+  }
+  .sidebar-navigation ul {
+    min-width: 100%;
+    text-align: center;
+  }
+  .sidebar-navigation ul li {
+    position: relative;
+    padding: 2vh 2vw 2vh 2vw;
+    cursor: pointer;
+    transition: all ease-out 120ms;
+    display: inline-block;
+  }
+  .grand {
+    margin-left: 0px;
+  }
+  .tooltip {
+    color: white;
+    font-size: xx-small;
+  }
+}
+@media (orientation: landscape) {
+  .grand {
+    margin-left: 70px;
+  }
+  .sidebar-navigation ul li .tooltip {
+    display: inline-block;
+    position: absolute;
+    background-color: #000000bd;
+    padding: 8px 15px;
+    border-radius: 3px;
+    margin-top: -26px;
+    left: 90px;
+    opacity: 0;
+    visibility: hidden;
+    font-size: 13px;
+    letter-spacing: 0.5px;
+    z-index: 1;
+  }
+  .sidebar-navigation ul li .tooltip:before {
+    content: "";
+    display: block;
+    position: absolute;
+    left: -4px;
+    top: 10px;
+    transform: rotate(45deg);
+    width: 10px;
+    height: 10px;
+    background-color: inherit;
+  }
+  .sidebar-navigation ul li:hover {
+    background-color: #00000060;
+  }
+  .sidebar-navigation ul li:hover .tooltip {
+    visibility: visible;
+    opacity: 1;
+  }
+  .imginicio {
+    width: 70%;
+    margin-top: 15px;
+    margin-bottom: 15px;
+  }
+  .sidebar-navigation {
+    position: relative;
+    min-height: 100vh;
+    width: 60px;
+    background: rgb(255, 126, 0);
+    background: linear-gradient(
+      180deg,
+      rgba(255, 126, 0, 1) 0%,
+      rgba(222, 58, 58, 1) 100%
+    );
+    border-radius: 0px 20px 20px 0px;
+    float: left;
+  }
+  .sidebar-navigation ul {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    min-height: 100%;
+    text-align: center;
+    color: white;
+  }
 }

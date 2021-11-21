@@ -117,6 +117,8 @@ app.get("/movimientos", (req, res) => {
     Rubro = req.query.Rubro
     movimientos = {}
     if (idcuenta && tiempo && Rubro) {
+      let Rubros = Rubro.replace(/_/g," ").split(",")
+      console.log(Rubros)
       let moneda = ""
       let accountnumber = ""
       let diactual = new Date();
@@ -177,7 +179,7 @@ app.get("/movimientos", (req, res) => {
           }
         })
 
-        res.render(path.join(__dirname, '/movimientos.html'), { "cuentas": req.session.cuentas, "movimientos": b, "rubro": Rubro.replace("_", " ") })
+        res.render(path.join(__dirname, '/movimientos.html'), { "cuentas": req.session.cuentas, "movimientos": b, "rubro": Rubros })
       });
 
     } else {
