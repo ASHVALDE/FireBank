@@ -34,7 +34,7 @@ app.use(express.static(__dirname + 'public')); //Serves resources from public fo
 app.use(express.static('public'));
 
 app.get('/', (req, res) => {
-  res.sendFile(path.join(__dirname, '/index.html'));
+  res.sendFile(path.join(__dirname, '/templates/index.html'));
 })
 
 
@@ -100,7 +100,7 @@ app.get("/inicio", (req, res) => {
         }
         req.session.cuentas = body2
 
-        res.render(path.join(__dirname, '/inicio.html'), { "name": name.toUpperCase(), "cuentas": cuentas });
+        res.render(path.join(__dirname, '/templates/inicio.html'), { "name": name.toUpperCase(), "cuentas": cuentas });
       });
 
     })
@@ -179,12 +179,12 @@ app.get("/movimientos", (req, res) => {
           }
         })
 
-        res.render(path.join(__dirname, '/movimientos.html'), { "cuentas": req.session.cuentas, "movimientos": b, "rubro": Rubros })
+        res.render(path.join(__dirname, '/templates/movimientos.html'), { "cuentas": req.session.cuentas, "movimientos": b, "rubro": Rubros })
       });
 
     } else {
 
-      res.render(path.join(__dirname, '/movimientos.html'), { "cuentas": req.session.cuentas, "movimientos": {} })
+      res.render(path.join(__dirname, '/templates/movimientos.html'), { "cuentas": req.session.cuentas, "movimientos": {} })
     }
   } else {
     res.redirect("/")

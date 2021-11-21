@@ -15,8 +15,8 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@1,400;1,700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="inicio.css">
-    <link rel="stylesheet" href="tabla.css">
+    <link rel="stylesheet" href="/css/inicio.css">
+    <link rel="stylesheet" href="/css/tabla.css">
     
     <script src="inicio.js"></script>
     
@@ -27,31 +27,31 @@
     <nav class="sidebar-navigation">
 
         <ul>
-            <img src="Logo.svg" class="imginicio">
+            <img src="/svg/Logo.svg" class="imginicio">
             <li onclick="location.href='/inicio'">
-                <img src="inicio.svg" alt="" style="width: 4vh;">
+                <img src="/svg/inicio.svg" alt="" style="width: 4vh;">
                 <i class="fa fa-newspaper-o"></i>
 
                 <span class="tooltip">Inicio</span>
             </li>
             <li class="active">
-                <img src="docs.svg" alt="" style="width: 4vh;">
+                <img src="/svg/docs.svg" alt="" style="width: 4vh;">
                 <i class="fa fa-newspaper-o"></i>
 
                 <span class="tooltip">Movimientos</span>
             </li>
             <li onclick="alert('Proximamente 😉')">
-                <img src="analytics.svg" alt="" style="width: 4vh;">
+                <img src="/svg/analytics.svg" alt="" style="width: 4vh;">
                 <i class="fa fa-newspaper-o"></i>
                 <span class="tooltip">Estadisticas</span>
             </li>
             <li onclick="alert('Proximamente 😉')">
-                <img src="usuarioX.svg" alt="" style="width: 4vh;">
+                <img src="/svg/usuarioX.svg" alt="" style="width: 4vh;">
                 <i class="fa fa-print"></i>
                 <span class="tooltip">Usuario</span>
             </li>
             <li onclick="location.href='/logout'">
-                <img src="shutdown.svg" alt="" style="width: 4vh;">
+                <img src="/svg/shutdown.svg" alt="" style="width: 4vh;">
                 <i class="fa fa-sliders"></i>
                 <span class="tooltip">Cerrar sesion</span>
             </li>
@@ -119,6 +119,7 @@
                 </tr>
                 <% Object.keys(movimientos["movements"]).forEach(key=>{
                     let color = "red";
+                    let title = "Salida de dinero"
                     if(movimientos["movements"][key]["credit"]==""){
                         movimientos["movements"][key]["credit"]=0
                     }
@@ -127,6 +128,7 @@
                     }
                     if(parseInt(movimientos["movements"][key]["credit"])-parseInt(movimientos["movements"][key]["debit"])>0){
                         color = "#00ff00";
+                        title = "Entrada de dinero"
                     }
                     %>
                     
@@ -135,7 +137,7 @@
                     <%  if (rubro.some(v => movimientos["movements"][key]["Categoria"].includes(v))){  %>
                     <td><%=movimientos["movements"][key]["date"]%></td>
                     <td><%=movimientos["movements"][key]["detail"]%></td>
-                    <td style="color:<%=color %> ;" ><%= parseInt(movimientos["movements"][key]["credit"])-parseInt(movimientos["movements"][key]["debit"])%></td>
+                    <td title="<% title %>" style="color:<%=color %> ;" ><%= parseInt(movimientos["movements"][key]["credit"])-parseInt(movimientos["movements"][key]["debit"])%></td>
 
                     <td><%=movimientos["movements"][key]["Categoria"]%></td>
 
