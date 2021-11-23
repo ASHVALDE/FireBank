@@ -24,7 +24,7 @@ Este mismo esta desarrollado en un entorno web amigable con el usuario con una i
     <li>Entradas: Toda consignación, recarga , ingreso o devolución de activos a la cuenta bancaria.</li>
     <li>Donaciones : Transacciones realizadas a empresas con fines sociales.</li>
 </ul>
- <img src="https://media.discordapp.net/attachments/831898602824794183/912723864784609360/unknown.png">
+ <img src="https://media.discordapp.net/attachments/831898602824794183/912724629611765790/unknown.png">
 
 <p>Luego con estas categorías se puede clasificar dependiendo de la descripción del movimiento que es lo que transacción se va a llevar a cabo y como se podrá clasificar.</p>
 <h2>Tecnologías a utilizar</h2>
