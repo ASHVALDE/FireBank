@@ -5,6 +5,7 @@
 Este mismo esta desarrollado en un entorno web amigable con el usuario con una interfaz moderna, simple y dinámica que se ajusta al dispositivo que use el usuario.
 
  </p>
+ <img src="https://cdn.discordapp.com/attachments/831898602824794183/912723320519131176/Hackathon_Santiago_Valderrama_html_a8328d00.png">
  <h2>¿Cómo vas a solucionar el reto?</h2>
  <p>El reto al que decidi enfrenarme fue al de la categorizacion de movimientos bancarios y tengo pensado obtener toda la informacion posible sobre cada movimiento , primero que todo debemos obtener sus detalles y con estos armar un cierto grupo de rubros por los cuales poder categorizar cada movimiento sin ser demaciado especificos o tener un grupo muy amplio categorzando de la siguiente forma:</p>
 <ul>
@@ -23,9 +24,13 @@ Este mismo esta desarrollado en un entorno web amigable con el usuario con una i
     <li>Entradas: Toda consignación, recarga , ingreso o devolución de activos a la cuenta bancaria.</li>
     <li>Donaciones : Transacciones realizadas a empresas con fines sociales.</li>
 </ul>
+ <img src="https://media.discordapp.net/attachments/831898602824794183/912723864784609360/unknown.png">
+
 <p>Luego con estas categorías se puede clasificar dependiendo de la descripción del movimiento que es lo que transacción se va a llevar a cabo y como se podrá clasificar.</p>
 <h2>Tecnologías a utilizar</h2>
 <p>Se va a utilizar tecnologia web como cara frontal del proyecto dado a que nos abre un abanico de posibles usuarios dado a que estamos abarcando todo dispositivo que tenga la posiblidad de conectarse al internet en una pagina integra y adaptativa según la necesidad del usuario aparte de ser una alternativa rapida para el usuario al no tener que descargar e instalar el aplicativo para poder utlizarlo.</p>
+ <img src="https://cdn.discordapp.com/attachments/831898602824794183/912724275599904778/unknown.png">
+
 <h2>STACK</h2>
 <ul>
 <li>De Front End se esta utilizando html, css y javascript , no se esta utilizando ningún framework ni ninguna librería .</li>
