@@ -145,38 +145,13 @@ app.get("/movimientos", (req, res) => {
         }
       }, function (e, r, b) {
         Object.keys(b["movements"]).forEach(function (k) {
-
-          if (Categorias['Hogar e Interiores'].some(v => b["movements"][k]["detail"].includes(v))) {
-            b["movements"][k]["Categoria"] = 'Hogar e Interiores'
-          } else if (Categorias['Salud'].some(v => b["movements"][k]["detail"].includes(v))) {
-            b["movements"][k]["Categoria"] = 'Salud'
-          } else if (Categorias['Compras Virtuales'].some(v => b["movements"][k]["detail"].includes(v))) {
-            b["movements"][k]["Categoria"] = 'Compras Virtuales'
-          } else if (Categorias['Comida'].some(v => b["movements"][k]["detail"].includes(v))) {
-            b["movements"][k]["Categoria"] = 'Comida'
-          } else if (Categorias['Turismo y cultura'].some(v => b["movements"][k]["detail"].includes(v))) {
-            b["movements"][k]["Categoria"] = 'Turismo y cultura'
-          } else if (Categorias['Vehiculos y transporte'].some(v => b["movements"][k]["detail"].includes(v))) {
-            b["movements"][k]["Categoria"] = 'Vehiculos y transporte'
-          } else if (Categorias['Ropa'].some(v => b["movements"][k]["detail"].includes(v))) {
-            b["movements"][k]["Categoria"] = 'Ropa'
-          } else if (Categorias['Mascotas'].some(v => b["movements"][k]["detail"].includes(v))) {
-            b["movements"][k]["Categoria"] = 'Mascotas'
-          } else if (Categorias['Empresas Reportadas Negativamente'].some(v => b["movements"][k]["detail"].includes(v))) {
-            b["movements"][k]["Categoria"] = 'Empresas Reportadas Negativamente'
-          } else if (Categorias['Software y Tecnologias'].some(v => b["movements"][k]["detail"].includes(v))) {
-            b["movements"][k]["Categoria"] = 'Software y Tecnologias'
-          } else if (Categorias['Economia y acciones'].some(v => b["movements"][k]["detail"].includes(v))) {
-            b["movements"][k]["Categoria"] = 'Economia y acciones'
-          } else if (Categorias['Retiros'].some(v => b["movements"][k]["detail"].includes(v))) {
-            b["movements"][k]["Categoria"] = 'Retiros'
-          } else if (Categorias['Entradas'].some(v => b["movements"][k]["detail"].includes(v))) {
-            b["movements"][k]["Categoria"] = 'Entradas'
-          } else if (Categorias['Donaciones'].some(v => b["movements"][k]["detail"].includes(v))) {
-            b["movements"][k]["Categoria"] = 'Donaciones'
-          } else {
-            b["movements"][k]["Categoria"] = 'Otro'
-          }
+          b["movements"][k]["Categoria"] = "Otro"
+          Object.keys(Categorias).forEach(function(v2){
+            if ( Categorias[v2].some(v => b["movements"][k]["detail"].includes(v))){
+              b["movements"][k]["Categoria"] = v2
+            }
+          })
+          
         })
 
         res.render(path.join(__dirname, '/templates/movimientos.html'), { "cuentas": req.session.cuentas, "movimientos": b, "rubro": Rubros })
@@ -226,39 +201,14 @@ app.get("/estadisticas", (req, res) => {
           "date_end": currentdate
         }
       }, function (e, r, b) {
-        Object.keys(b["movements"]).forEach(function (k) {
 
-          if (Categorias['Hogar e Interiores'].some(v => b["movements"][k]["detail"].includes(v))) {
-            b["movements"][k]["Categoria"] = 'Hogar e Interiores'
-          } else if (Categorias['Salud'].some(v => b["movements"][k]["detail"].includes(v))) {
-            b["movements"][k]["Categoria"] = 'Salud'
-          } else if (Categorias['Compras Virtuales'].some(v => b["movements"][k]["detail"].includes(v))) {
-            b["movements"][k]["Categoria"] = 'Compras Virtuales'
-          } else if (Categorias['Comida'].some(v => b["movements"][k]["detail"].includes(v))) {
-            b["movements"][k]["Categoria"] = 'Comida'
-          } else if (Categorias['Turismo y cultura'].some(v => b["movements"][k]["detail"].includes(v))) {
-            b["movements"][k]["Categoria"] = 'Turismo y cultura'
-          } else if (Categorias['Vehiculos y transporte'].some(v => b["movements"][k]["detail"].includes(v))) {
-            b["movements"][k]["Categoria"] = 'Vehiculos y transporte'
-          } else if (Categorias['Ropa'].some(v => b["movements"][k]["detail"].includes(v))) {
-            b["movements"][k]["Categoria"] = 'Ropa'
-          } else if (Categorias['Mascotas'].some(v => b["movements"][k]["detail"].includes(v))) {
-            b["movements"][k]["Categoria"] = 'Mascotas'
-          } else if (Categorias['Empresas Reportadas Negativamente'].some(v => b["movements"][k]["detail"].includes(v))) {
-            b["movements"][k]["Categoria"] = 'Empresas Reportadas Negativamente'
-          } else if (Categorias['Software y Tecnologias'].some(v => b["movements"][k]["detail"].includes(v))) {
-            b["movements"][k]["Categoria"] = 'Software y Tecnologias'
-          } else if (Categorias['Economia y acciones'].some(v => b["movements"][k]["detail"].includes(v))) {
-            b["movements"][k]["Categoria"] = 'Economia y acciones'
-          } else if (Categorias['Retiros'].some(v => b["movements"][k]["detail"].includes(v))) {
-            b["movements"][k]["Categoria"] = 'Retiros'
-          } else if (Categorias['Entradas'].some(v => b["movements"][k]["detail"].includes(v))) {
-            b["movements"][k]["Categoria"] = 'Entradas'
-          } else if (Categorias['Donaciones'].some(v => b["movements"][k]["detail"].includes(v))) {
-            b["movements"][k]["Categoria"] = 'Donaciones'
-          } else {
-            b["movements"][k]["Categoria"] = 'Otro'
-          }
+        Object.keys(b["movements"]).forEach(function (k) {
+          b["movements"][k]["Categoria"] = "Otro"
+          Object.keys(Categorias).forEach(function(v2){
+            if ( Categorias[v2].some(v => b["movements"][k]["detail"].includes(v))){
+              b["movements"][k]["Categoria"] = v2
+            }
+          })
         })
         let diactualx = new Date();
         switch (Rubro) {
