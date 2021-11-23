@@ -283,4 +283,12 @@ main {
   .ms-drop ul li{
     text-align: left;
     padding: 5px}
+
+    .ms-choice > span{
+      position: initial;
+      
+  }
+  .ms-choice > span.placeholder{
+      color: black;
+  }
   

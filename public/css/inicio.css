@@ -89,6 +89,8 @@ body {
   font-family: "Noto Sans", sans-serif;
 }
 .grand > div > div {
+  user-select: none; /* Standard */
+
   border: 3px white solid;
   border-radius: 15px;
   text-align: center;

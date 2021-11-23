@@ -85,7 +85,7 @@
             <option value="1825">Ultimos 5 años</option>
         </select>
     
-        <select  name="Rubro" id="Rubro" multiple="multiple" > 
+        <select  name="Rubro" id="Rubro" multiple="multiple"   > 
             <option value="Hogar_e_Interiores">Hogar e Interiores</option>
             <option value="Medicina">Medicina</option>
             <option value="Compras_Virtuales">Compras Virtuales</option>
@@ -105,7 +105,9 @@
         <script>
             // Initialize multiple select on your regular select
             $("#Rubro").multipleSelect({
-                filter: true
+                filter: true,
+                placeholder:"Selecciona categorias"
+                
             });
         </script>
         <button onclick="read()">Buscar</button>
