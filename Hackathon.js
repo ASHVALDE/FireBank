@@ -8,19 +8,19 @@ var request = require('request');
 const { plot, Plot } = require('nodeplotlib');
 
 const Categorias = {
-  ["Hogar e Interiores"]: ["MOOIMOM","SOFTEXINDONESIA", "STICKERS", "DEDEMAN", "HORNBACH", "GAME.CO.ZA", "CLICKS.CO.ZA", "MATAHARIMALL", "SODIMAC", "MRPHOME", "NETFLORIST", "ILUMINACION", "ABC HOME", "4 TINTAS"],
-  ["Salud"]: ["SPORT","DRMAX", "MEDICA", "FAITHFUL-TO-NATURE", "MEDICOS", "PHARMACY", "OPTICA", "FARMACIA"],
+  ["Hogar e Interiores"]: ["MOOIMOM", "SOFTEXINDONESIA", "STICKERS", "DEDEMAN", "HORNBACH", "GAME.CO.ZA", "CLICKS.CO.ZA", "MATAHARIMALL", "SODIMAC", "MRPHOME", "NETFLORIST", "ILUMINACION", "ABC HOME", "4 TINTAS"],
+  ["Salud"]: ["SPORT", "DRMAX", "MEDICA", "FAITHFUL-TO-NATURE", "MEDICOS", "PHARMACY", "OPTICA", "FARMACIA"],
   ["Compras Virtuales"]: ["AMZN", "SHOPEE", "REV.", "SUPERMARKET", "CUOTA", "AMAZON", "MERCADO", "GEANT", "REDIVA", "EL CORTE INGLES", "2CO.COM"],
-  ["Comida"]: ["STARBUCK","PICCOLINO", "BAR", "EL CLUB DE LA PAPA F", "ANCAP", "CARNICERIA", "STARBUCKS", "PASTAS", "SUBWAY", "PANADERIA", "RESTAURANTE", "EMPANADAS", "A PAO DE QUEIJARIA", "879 HOUSE", "DUTY FREE AMERIC", "7 ELEVEN", "OPEN BAR", "BRIO DOLPHIN", "123 COMIDA", "PARRILLADA", "PEPSIVEN", "SUSHI", "STARBUCKS"],
+  ["Comida"]: ["STARBUCK", "PICCOLINO", "BAR", "EL CLUB DE LA PAPA F", "ANCAP", "CARNICERIA", "STARBUCKS", "PASTAS", "SUBWAY", "PANADERIA", "RESTAURANTE", "EMPANADAS", "A PAO DE QUEIJARIA", "879 HOUSE", "DUTY FREE AMERIC", "7 ELEVEN", "OPEN BAR", "BRIO DOLPHIN", "123 COMIDA", "PARRILLADA", "PEPSIVEN", "SUSHI", "STARBUCKS"],
   ["Turismo y cultura"]: ["ESSO", "CURRY MOUNTAIN", "AIRBNB", "VIAJE", "WIKIPEDI", "SHERATON LIMA", "ARTESANAL", "HOTEL ART DESIGN"],
   ["Vehiculos y transporte"]: ["GOMERIA", "LOGISTICS", "DIDI", "AUTOMOVI", "JAYS TRAVEL CENTER", "UBER"],
   ["Ropa"]: ["ZALORA", "FASHION", "ACKERMANS", "BRO.DO", "RELOJERIA", "MEDIERIAS", "BARBER", "NIKE", "ADIDAS", "ZARA", "A EAGLE OUTFTR", "FOREVER 21", "3SECOND.CO"],
-  ["Mascotas"]: ["PETMEDS","PETSOLUTIONS"],
+  ["Mascotas"]: ["PETMEDS", "PETSOLUTIONS"],
   ["Empresas Reportadas Negativamente"]: ["ITALO HMADRID", "AA INFLIGHT MC FACET 2"],
-  ["Software y Tecnologias"]: ["EVETECH","JAKARTANOTEBOOK", "GAMES	", "EMAG", "STEAM", "MICROSOFT", "DIRECTV", "NETFLIX", "OCULUS", "FACEBK", "GOOGLE", "YOUTUBE", "69CASES", "1PASSWORD", "42ND STREET PHOTO"],
+  ["Software y Tecnologias"]: ["EVETECH", "JAKARTANOTEBOOK", "GAMES	", "EMAG", "STEAM", "MICROSOFT", "DIRECTV", "NETFLIX", "OCULUS", "FACEBK", "GOOGLE", "YOUTUBE", "69CASES", "1PASSWORD", "42ND STREET PHOTO"],
   ["Economia y acciones"]: ["FRAUDE FULL ZS", "INVERSIONES", "HOVEREX", "NETELLER", "PAYPAL", "VISA", "XAPO", "ADS", "ABEONACOIN"],
   ["Retiros"]: ["CHEQUE", "DEVUELTO", "COMISION", "DEB", "DEBITO", "RETIRO", "COBRO"],
-  ["Entradas"]: ["TRF","ACREDITACION", "CRED.", "SUELDO", "CAMBIOS", "DEPOSITO", "TRASPASO", "PAGO", "ABONO"],
+  ["Entradas"]: ["TRF", "ACREDITACION", "CRED.", "SUELDO", "CAMBIOS", "DEPOSITO", "TRASPASO", "PAGO", "ABONO"],
   ["Donaciones"]: ["SOLIDARIDAD", "3SECOND"],
 }
 
@@ -35,7 +35,13 @@ app.use(express.static(__dirname + 'public')); //Serves resources from public fo
 app.use(express.static('public'));
 
 app.get('/', (req, res) => {
-  res.sendFile(path.join(__dirname, '/templates/index.html'));
+  idcuenta = req.query.user
+  if(idcuenta){
+    res.render(path.join(__dirname, '/templates/index.html'), { "user":idcuenta});
+  }else{
+    res.render(path.join(__dirname, '/templates/index.html'),{"user":false});
+
+  }
 })
 
 
@@ -61,7 +67,7 @@ app.post('/auth', (req, res) => {
       req.session.user = req.body["user"]
       res.redirect("/inicio")
     } else {
-      res.redirect("/")
+      res.redirect("/?user="+req.body["user"])
     }
   });
 })
@@ -146,12 +152,12 @@ app.get("/movimientos", (req, res) => {
       }, function (e, r, b) {
         Object.keys(b["movements"]).forEach(function (k) {
           b["movements"][k]["Categoria"] = "Otro"
-          Object.keys(Categorias).forEach(function(v2){
-            if ( Categorias[v2].some(v => b["movements"][k]["detail"].includes(v))){
+          Object.keys(Categorias).forEach(function (v2) {
+            if (Categorias[v2].some(v => b["movements"][k]["detail"].includes(v))) {
               b["movements"][k]["Categoria"] = v2
             }
           })
-          
+
         })
 
         res.render(path.join(__dirname, '/templates/movimientos.html'), { "cuentas": req.session.cuentas, "movimientos": b, "rubro": Rubros })
@@ -204,8 +210,8 @@ app.get("/estadisticas", (req, res) => {
 
         Object.keys(b["movements"]).forEach(function (k) {
           b["movements"][k]["Categoria"] = "Otro"
-          Object.keys(Categorias).forEach(function(v2){
-            if ( Categorias[v2].some(v => b["movements"][k]["detail"].includes(v))){
+          Object.keys(Categorias).forEach(function (v2) {
+            if (Categorias[v2].some(v => b["movements"][k]["detail"].includes(v))) {
               b["movements"][k]["Categoria"] = v2
             }
           })
