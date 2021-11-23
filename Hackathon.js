@@ -8,19 +8,19 @@ var request = require('request');
 const { plot, Plot } = require('nodeplotlib');
 
 const Categorias = {
-  ["Hogar e Interiores"]: ["ILUMINACION", "ABC HOME", "4 TINTAS"],
-  ["Medicina"]: ["MEDICA", "MEDICOS", "PHARMACY", "OPTICA", "FARMACIA"],
-  ["Compras Virtuales"]: ["REV.", "SUPERMARKET", "CUOTA", "AMAZON", "MERCADO", "GEANT", "REDIVA", "EL CORTE INGLES", "2CO.COM"],
-  ["Comida"]: ["STARBUCKS", "PASTAS", "SUBWAY", "PANADERIA", "RESTAURANTE", "EMPANADAS", "A PAO DE QUEIJARIA", "879 HOUSE", "DUTY FREE AMERIC", "7 ELEVEN", "OPEN BAR", "BRIO DOLPHIN", "123 COMIDA", "PARRILLADA", "PEPSIVEN", "SUSHI", "STARBUCKS"],
-  ["Turismo y cultura"]: ["AIRBNB", "VIAJE", "WIKIPEDI", "SHERATON LIMA", "ARTESANAL", "HOTEL ART DESIGN"],
-  ["Vehiculos y transporte"]: ["DIDI", "AUTOMOVI", "JAYS TRAVEL CENTER", "UBER"],
-  ["Ropa"]: ["MEDIERIAS", "BARBER", "NIKE", "ADIDAS", "ZARA", "A EAGLE OUTFTR", "FOREVER 21", "3SECOND.CO"],
-  ["Mascotas"]: ["PETMEDS"],
+  ["Hogar e Interiores"]: ["MOOIMOM","SOFTEXINDONESIA", "STICKERS", "DEDEMAN", "HORNBACH", "GAME.CO.ZA", "CLICKS.CO.ZA", "MATAHARIMALL", "SODIMAC", "MRPHOME", "NETFLORIST", "ILUMINACION", "ABC HOME", "4 TINTAS"],
+  ["Salud"]: ["SPORT","DRMAX", "MEDICA", "FAITHFUL-TO-NATURE", "MEDICOS", "PHARMACY", "OPTICA", "FARMACIA"],
+  ["Compras Virtuales"]: ["AMZN", "SHOPEE", "REV.", "SUPERMARKET", "CUOTA", "AMAZON", "MERCADO", "GEANT", "REDIVA", "EL CORTE INGLES", "2CO.COM"],
+  ["Comida"]: ["STARBUCK","PICCOLINO", "BAR", "EL CLUB DE LA PAPA F", "ANCAP", "CARNICERIA", "STARBUCKS", "PASTAS", "SUBWAY", "PANADERIA", "RESTAURANTE", "EMPANADAS", "A PAO DE QUEIJARIA", "879 HOUSE", "DUTY FREE AMERIC", "7 ELEVEN", "OPEN BAR", "BRIO DOLPHIN", "123 COMIDA", "PARRILLADA", "PEPSIVEN", "SUSHI", "STARBUCKS"],
+  ["Turismo y cultura"]: ["ESSO", "CURRY MOUNTAIN", "AIRBNB", "VIAJE", "WIKIPEDI", "SHERATON LIMA", "ARTESANAL", "HOTEL ART DESIGN"],
+  ["Vehiculos y transporte"]: ["GOMERIA", "LOGISTICS", "DIDI", "AUTOMOVI", "JAYS TRAVEL CENTER", "UBER"],
+  ["Ropa"]: ["ZALORA", "FASHION", "ACKERMANS", "BRO.DO", "RELOJERIA", "MEDIERIAS", "BARBER", "NIKE", "ADIDAS", "ZARA", "A EAGLE OUTFTR", "FOREVER 21", "3SECOND.CO"],
+  ["Mascotas"]: ["PETMEDS","PETSOLUTIONS"],
   ["Empresas Reportadas Negativamente"]: ["ITALO HMADRID", "AA INFLIGHT MC FACET 2"],
-  ["Software y Tecnologias"]: ["STEAM", "MICROSOFT", "DIRECTV", "NETFLIX", "OCULUS", "FACEBK", "GOOGLE", "YOUTUBE", "69CASES", "1PASSWORD", "42ND STREET PHOTO"],
-  ["Economia y acciones"]: ["HOVEREX", "NETELLER", "PAYPAL", "VISA", "XAPO", "ADS", "ABEONACOIN"],
-  ["Retiros"]: ["DEVUELTO", "COMISION", "DEB", "DEBITO", "RETIRO", "COBRO"],
-  ["Entradas"]: ["CRED.", "SUELDO", "CAMBIOS", "DEPOSITO", "TRASPASO", "PAGO", "ABONO"],
+  ["Software y Tecnologias"]: ["EVETECH","JAKARTANOTEBOOK", "GAMES	", "EMAG", "STEAM", "MICROSOFT", "DIRECTV", "NETFLIX", "OCULUS", "FACEBK", "GOOGLE", "YOUTUBE", "69CASES", "1PASSWORD", "42ND STREET PHOTO"],
+  ["Economia y acciones"]: ["FRAUDE FULL ZS", "INVERSIONES", "HOVEREX", "NETELLER", "PAYPAL", "VISA", "XAPO", "ADS", "ABEONACOIN"],
+  ["Retiros"]: ["CHEQUE", "DEVUELTO", "COMISION", "DEB", "DEBITO", "RETIRO", "COBRO"],
+  ["Entradas"]: ["TRF","ACREDITACION", "CRED.", "SUELDO", "CAMBIOS", "DEPOSITO", "TRASPASO", "PAGO", "ABONO"],
   ["Donaciones"]: ["SOLIDARIDAD", "3SECOND"],
 }
 
@@ -148,8 +148,8 @@ app.get("/movimientos", (req, res) => {
 
           if (Categorias['Hogar e Interiores'].some(v => b["movements"][k]["detail"].includes(v))) {
             b["movements"][k]["Categoria"] = 'Hogar e Interiores'
-          } else if (Categorias['Medicina'].some(v => b["movements"][k]["detail"].includes(v))) {
-            b["movements"][k]["Categoria"] = 'Medicina'
+          } else if (Categorias['Salud'].some(v => b["movements"][k]["detail"].includes(v))) {
+            b["movements"][k]["Categoria"] = 'Salud'
           } else if (Categorias['Compras Virtuales'].some(v => b["movements"][k]["detail"].includes(v))) {
             b["movements"][k]["Categoria"] = 'Compras Virtuales'
           } else if (Categorias['Comida'].some(v => b["movements"][k]["detail"].includes(v))) {
@@ -230,8 +230,8 @@ app.get("/estadisticas", (req, res) => {
 
           if (Categorias['Hogar e Interiores'].some(v => b["movements"][k]["detail"].includes(v))) {
             b["movements"][k]["Categoria"] = 'Hogar e Interiores'
-          } else if (Categorias['Medicina'].some(v => b["movements"][k]["detail"].includes(v))) {
-            b["movements"][k]["Categoria"] = 'Medicina'
+          } else if (Categorias['Salud'].some(v => b["movements"][k]["detail"].includes(v))) {
+            b["movements"][k]["Categoria"] = 'Salud'
           } else if (Categorias['Compras Virtuales'].some(v => b["movements"][k]["detail"].includes(v))) {
             b["movements"][k]["Categoria"] = 'Compras Virtuales'
           } else if (Categorias['Comida'].some(v => b["movements"][k]["detail"].includes(v))) {
@@ -287,7 +287,7 @@ app.get("/estadisticas", (req, res) => {
               x[b["movements"][k]["Categoria"]] = x[b["movements"][k]["Categoria"]] + 1
             })
             break;
-          
+
         }
         res.render(path.join(__dirname, '/templates/estadisticas.html'), { "cuentas": req.session.cuentas, "estadisticas": x })
       });
