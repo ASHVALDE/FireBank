@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Estadisticas</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.6.0/chart.min.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@1,400;1,700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/css/inicio.css">
+
+    <link rel="stylesheet" href="/css/tabla.css">
+</head>
+
+<body>
+    <nav class="sidebar-navigation">
+
+        <ul>
+            <img src="/svg/logo.svg" class="imginicio">
+            <li onclick="location.href='/inicio'">
+                <img src="/svg/inicio.svg" alt="" style="width: 4vh;">
+                <i class="fa fa-newspaper-o"></i>
+
+                <span class="tooltip">Inicio</span>
+            </li>
+            <li onclick="location.href='/movimientos'">
+                <img src="/svg/docs.svg" alt="" style="width: 4vh;">
+                <i class="fa fa-newspaper-o"></i>
+
+                <span class="tooltip">Movimientos</span>
+            </li>
+            <li class="active">
+                <img src="/svg/analytics.svg" alt="" style="width: 4vh;">
+                <i class="fa fa-newspaper-o"></i>
+                <span class="tooltip">Estadisticas</span>
+            </li>
+            <li onclick="alert('Proximamente 😉')">
+                <img src="/svg/usuarioX.svg" alt="" style="width: 4vh;">
+                <i class="fa fa-print"></i>
+                <span class="tooltip">Usuario</span>
+            </li>
+            <li onclick="location.href='/logout'">
+                <img src="/svg/shutdown.svg" alt="" style="width: 4vh;">
+                <i class="fa fa-sliders"></i>
+                <span class="tooltip">Cerrar sesion</span>
+            </li>
+        </ul>
+    </nav>
+    <div class="grand">
+        <h1>👀 Tus estadisticas financieras 👀</h1>
+        <br>
+        <select name="Cuentas" id="Cuentas">
+            <option value="na" selected disabled>Seleccione su cuenta</option>
+            <% Object.keys(cuentas["accounts"]).forEach(key=>{%>
+                <option value="<%=key%>">
+                    <%=cuentas["accounts"][key]["name"] %>
+                </option>
+                <%}) %>
+
+        </select>
+        <select name="fechas" id="fechas">
+            <option value="na" selected disabled>Seleccione un rango de fechas</option>
+            <option value="0">hoy</option>
+            <option value="7">Ultimos 7 dias</option>
+            <option value="15">Ultimos 15 dias</option>
+            <option value="30">Ultimos 30 dias</option>
+            <option value="90">Ultimos 3 meses</option>
+            <option value="180">Ultimos 6 meses</option>
+            <option value="365">Ultimo año</option>
+            <option value="1825">Ultimos 5 años</option>
+        </select>
+        <select name="rubro" id="rubro">
+            <option value="na" selected disabled>Seleccione una categoria</option>
+            <option value="1">gastos por categoria</option>
+            <option value="2">Movimientos por categoria </option>      
+            
+        </select>
+        <button onclick="read()">Consultar</button>
+        <% if (Object.keys(estadisticas).length!=0){%>
+            <canvas id="myChart" width="400" height="400"></canvas>
+            <script>
+                let x = <%-JSON.stringify(estadisticas) %>;
+                let y = []
+                Object.keys(x).forEach(function (v, k) {
+                    y.push(x[v])
+                })
+
+
+                const ctx = document.getElementById('myChart').getContext('2d');
+                const myChart = new Chart(ctx, {
+                    type: 'bar',
+                    data: {
+                        labels: Object.keys(x),
+                        datasets: [{
+                            
+                            data: y,
+                            backgroundColor: [
+                                'rgba(255, 99, 132, 0.2)',
+                                'rgba(54, 162, 235, 0.2)',
+                                'rgba(255, 206, 86, 0.2)',
+                                'rgba(75, 192, 192, 0.2)',
+                                'rgba(153, 102, 255, 0.2)',
+                                'rgba(255, 159, 64, 0.2)'
+                            ],
+                            borderColor: [
+                                'rgba(255, 99, 132, 1)',
+                                'rgba(54, 162, 235, 1)',
+                                'rgba(255, 206, 86, 1)',
+                                'rgba(75, 192, 192, 1)',
+                                'rgba(153, 102, 255, 1)',
+                                'rgba(255, 159, 64, 1)'
+                            ],
+                            borderWidth: 1
+                        }]
+                    },
+                    options: {
+                        scales: {
+                            y: {
+                                beginAtZero: true
+                            }
+                        }
+                    }
+                });
+            </script>
+            <%} %>
+
+
+    </div>
+
+</body>
+<script src="estadisticas.js"></script>
+
+</html>

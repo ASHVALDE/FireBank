@@ -5,6 +5,7 @@ const app = express()
 const port = process.env.PORT || 3000
 let options = {};
 var request = require('request');
+const { plot, Plot } = require('nodeplotlib');
 
 const Categorias = {
   ["Hogar e Interiores"]: ["ILUMINACION", "ABC HOME", "4 TINTAS"],
@@ -24,7 +25,7 @@ const Categorias = {
 }
 
 bodyParser = require('body-parser'),
-app.use(session({ secret: "3d2qd2dcj20j", resave: true, saveUninitialized: true }))
+  app.use(session({ secret: "3d2qd2dcj20j", resave: true, saveUninitialized: true }))
 app.use(express.json())
 app.engine('html', require('ejs').renderFile);
 app.use(express.urlencoded({
@@ -117,8 +118,7 @@ app.get("/movimientos", (req, res) => {
     Rubro = req.query.Rubro
     movimientos = {}
     if (idcuenta && tiempo) {
-      let Rubros = Rubro.replace(/_/g," ").split(",")
-      console.log(Rubros)
+      let Rubros = Rubro.replace(/_/g, " ").split(",")
       let moneda = ""
       let accountnumber = ""
       let diactual = new Date();
@@ -190,6 +190,118 @@ app.get("/movimientos", (req, res) => {
     res.redirect("/")
   }
 
+})
+
+app.get("/estadisticas", (req, res) => {
+  if (req.session.logged) {
+    idcuenta = req.query.Cuentas
+    tiempo = req.query.Dias
+    Rubro = req.query.Rubro
+    movimientos = {}
+    let x = {}
+    let y = {}
+    if (idcuenta && tiempo) {
+      let moneda = ""
+      let accountnumber = ""
+      let diactual = new Date();
+      let currentdate = diactual.getDate() + "/" + (diactual.getMonth() + 1) + "/" + diactual.getFullYear()
+      diactual.setDate(diactual.getDate() - tiempo)
+      let targetdate = diactual.getDate() + "/" + (diactual.getMonth() + 1) + "/" + diactual.getFullYear()
+      Object.keys(req.session.cuentas["accounts"]).forEach(key => {
+        if (key === idcuenta) {
+          moneda = req.session.cuentas["accounts"][key]["currency"]
+          accountnumber = req.session.cuentas["accounts"][key]["number"]
+        }
+      })
+      request.get({
+        "url": "https://banking.sandbox.prometeoapi.com/account/" + accountnumber + "/movement/",
+        "json": true,
+        "headers": {
+          "X-API-Key": "51mxMHOk90UGuJCYHFYqu7PrZLdoCqfSxj9uTcGMfz67SwszdKofhVAaIhmd0ULB"
+        },
+        "qs": {
+          "key": req.session.key,
+          "currency": moneda,
+          "date_start": targetdate,
+          "date_end": currentdate
+        }
+      }, function (e, r, b) {
+        Object.keys(b["movements"]).forEach(function (k) {
+
+          if (Categorias['Hogar e Interiores'].some(v => b["movements"][k]["detail"].includes(v))) {
+            b["movements"][k]["Categoria"] = 'Hogar e Interiores'
+          } else if (Categorias['Medicina'].some(v => b["movements"][k]["detail"].includes(v))) {
+            b["movements"][k]["Categoria"] = 'Medicina'
+          } else if (Categorias['Compras Virtuales'].some(v => b["movements"][k]["detail"].includes(v))) {
+            b["movements"][k]["Categoria"] = 'Compras Virtuales'
+          } else if (Categorias['Comida'].some(v => b["movements"][k]["detail"].includes(v))) {
+            b["movements"][k]["Categoria"] = 'Comida'
+          } else if (Categorias['Turismo y cultura'].some(v => b["movements"][k]["detail"].includes(v))) {
+            b["movements"][k]["Categoria"] = 'Turismo y cultura'
+          } else if (Categorias['Vehiculos y transporte'].some(v => b["movements"][k]["detail"].includes(v))) {
+            b["movements"][k]["Categoria"] = 'Vehiculos y transporte'
+          } else if (Categorias['Ropa'].some(v => b["movements"][k]["detail"].includes(v))) {
+            b["movements"][k]["Categoria"] = 'Ropa'
+          } else if (Categorias['Mascotas'].some(v => b["movements"][k]["detail"].includes(v))) {
+            b["movements"][k]["Categoria"] = 'Mascotas'
+          } else if (Categorias['Empresas Reportadas Negativamente'].some(v => b["movements"][k]["detail"].includes(v))) {
+            b["movements"][k]["Categoria"] = 'Empresas Reportadas Negativamente'
+          } else if (Categorias['Software y Tecnologias'].some(v => b["movements"][k]["detail"].includes(v))) {
+            b["movements"][k]["Categoria"] = 'Software y Tecnologias'
+          } else if (Categorias['Economia y acciones'].some(v => b["movements"][k]["detail"].includes(v))) {
+            b["movements"][k]["Categoria"] = 'Economia y acciones'
+          } else if (Categorias['Retiros'].some(v => b["movements"][k]["detail"].includes(v))) {
+            b["movements"][k]["Categoria"] = 'Retiros'
+          } else if (Categorias['Entradas'].some(v => b["movements"][k]["detail"].includes(v))) {
+            b["movements"][k]["Categoria"] = 'Entradas'
+          } else if (Categorias['Donaciones'].some(v => b["movements"][k]["detail"].includes(v))) {
+            b["movements"][k]["Categoria"] = 'Donaciones'
+          } else {
+            b["movements"][k]["Categoria"] = 'Otro'
+          }
+        })
+        let diactualx = new Date();
+        switch (Rubro) {
+          case "1":
+            x["Otro"] = 0
+            Object.keys(Categorias).forEach(function (v, k) {
+              x[v] = 0
+            })
+            Object.keys(b["movements"]).forEach(function (v, k) {
+              if (b["movements"][v]["credit"] == "") {
+                b["movements"][v]["credit"] = 0
+              }
+              if (b["movements"][v]["debit"] == "") {
+                b["movements"][v]["debit"] = 0
+              }
+              x[b["movements"][v]["Categoria"]] = x[b["movements"][v]["Categoria"]] + parseInt(b["movements"][v]["debit"])
+            })
+            delete x["Otros"]
+            break;
+          case "2":
+            x["Otro"] = 0
+            Object.keys(Categorias).forEach(function (v, k) {
+              x[v] = 0
+            })
+            Object.keys(b["movements"]).forEach(function (v, k) {
+              x[b["movements"][k]["Categoria"]] = x[b["movements"][k]["Categoria"]] + 1
+            })
+            break;
+          
+        }
+        res.render(path.join(__dirname, '/templates/estadisticas.html'), { "cuentas": req.session.cuentas, "estadisticas": x })
+      });
+
+    } else {
+
+      res.render(path.join(__dirname, '/templates/estadisticas.html'), { "cuentas": req.session.cuentas, "estadisticas": {} })
+    }
+
+
+
+  } else {
+    res.redirect("/")
+  }
 })
 
 app.get("/logout", (req, res) => {

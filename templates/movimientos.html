@@ -8,7 +8,7 @@
     <title>Movimientos</title>
 
     <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
-
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@3.6.0/dist/chart.min.js"></script>
     <link rel="stylesheet" type="text/css" href="https://cdn.rawgit.com/wenzhixin/multiple-select/e14b36de/multiple-select.css">
     <!-- Include plugin -->
     <script src="https://cdn.rawgit.com/wenzhixin/multiple-select/e14b36de/multiple-select.js"></script>
@@ -40,7 +40,7 @@
 
                 <span class="tooltip">Movimientos</span>
             </li>
-            <li onclick="alert('Proximamente 😉')">
+            <li onclick="location.href='/estadisticas'">
                 <img src="/svg/analytics.svg" alt="" style="width: 4vh;">
                 <i class="fa fa-newspaper-o"></i>
                 <span class="tooltip">Estadisticas</span>
@@ -58,11 +58,13 @@
         </ul>
     </nav>
     <div class="grand">
-        <h1>Tus ultimos movimientos financieros</h1>
+        <h1>⚖️ Tus ultimos movimientos financieros ⚖️</h1>
         
         <h3>¿Que movimientos quieres buscar?</h3>
         <br>
         <select name="Cuentas" id="Cuentas">
+            <option value="na" selected disabled>Seleccione su cuenta</option>
+
             <% Object.keys(cuentas["accounts"]).forEach(key=>{%>
                 <option value="<%=key%>"> <%=cuentas["accounts"][key]["name"] %>
                 </option>
@@ -70,7 +72,9 @@
                    
         </select>
         
+        
         <select name="Dias" id="Dias">
+            <option value="na" selected disabled>Seleccione un rango de fechas</option>
             <option value="0">hoy</option>
             <option value="7">Ultimos 7 dias</option>
             <option value="15">Ultimos 15 dias</option>

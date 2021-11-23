@@ -216,3 +216,8 @@ body {
     color: white;
   }
 }
+#myChart {
+  max-height: 70vh;
+}
+
+

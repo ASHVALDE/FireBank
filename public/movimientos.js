@@ -17,6 +17,10 @@ function read(){
     let idAccount=document.getElementById("Cuentas").value
     let tiempo=document.getElementById("Dias").value
     let Categoria=document.getElementById("Rubro")
-    
-    window.location.replace("/movimientos?Cuentas="+idAccount+"&Dias="+tiempo+"&Rubro="+getSelectValues(Categoria))
+    if (idAccount=="na" || tiempo=="na"){
+      alert("Seleccione todos los campos")
+    }else{
+      window.location.replace("/movimientos?Cuentas="+idAccount+"&Dias="+tiempo+"&Rubro="+getSelectValues(Categoria))
+
+    }
 }
